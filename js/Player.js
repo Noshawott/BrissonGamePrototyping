@@ -1,7 +1,6 @@
 function Player()
 {
     // set up player's starting point
-    var canvas = document.getElementByID("canvas");
     this.x = canvas.width/2;
     this.y = canvas.height/2;
     // set up player's dimentsions
@@ -9,7 +8,7 @@ function Player()
     this.height = 100;
 
     // set players color
-    this.color = "#ff000000"
+    this.color = "#ff0000"
 
     this.draw = function()
     {
