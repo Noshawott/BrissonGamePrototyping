@@ -4,9 +4,14 @@ canvas = document.getElementById("canvas")
 context = canvas.getContext("2d")
 
 
-player = new Player()
-player.vx = 30;
-player.vy = 30;
+player = new GameObject(canvas.width/2,canvas.height/2,100,100,"#7a2876")
+player.vx = 0;
+player.vy = 0;
+
+npc1 = new GameObject(300, canvas.height/2, 100, 100, "#00ff15");
+npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
+npc3 = new GameObject(900, canvas.height/2, 100, 100, "#ff0000");
+
 
 timer = setInterval(animate, interval);
 
@@ -51,7 +56,10 @@ function animate()
         player.color = "#00ff0d";
     }
 
-    player.draw();
+    player.drawCircle();
+    npc1.drawCircle();
+    npc2.drawCircle();
+    npc3.drawCircle();
 }
-
+ 
 

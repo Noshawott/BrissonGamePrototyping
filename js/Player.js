@@ -30,7 +30,7 @@ function GameObject(x,y,h,w,color)
     this.vx = 0;
     this.vy = 0;
 
-    this.draw = function()
+    this.drawCircle = function()
     {
         context.beginPath();
         context.arc(this.x,this.y, this.radius, 0, 360*Math.PI/180, true)
