@@ -18,6 +18,25 @@ timer = setInterval(animate, interval);
 function animate()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    if(d)
+    {
+        player.x += 5;
+    }
+    if(a)
+    {
+        player.x -= 5;
+    }
+    if(w)
+    {
+        player.y -= 5;
+    }
+    if(s)
+    {
+        player.y += 5;
+    }
+
+
     player.move();
     if(player.x > canvas.width + player.width/2 - 100)
     {
@@ -55,6 +74,8 @@ function animate()
         player.vx = 30;
         player.color = "#00ff0d";
     }
+
+
 
     player.drawCircle();
     npc1.drawCircle();
