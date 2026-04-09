@@ -20,6 +20,7 @@ function Player()
         context.beginPath();
         context.arc(this.x,this.y, this.radius, 0, 360*Math.PI/180, true)
         context.closePath();
+        context.fillStyle = this.color;
         context.fill();
         context.restore();
     }
