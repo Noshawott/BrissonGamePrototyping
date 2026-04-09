@@ -1,15 +1,30 @@
-function Player()
+function GameObject(x,y,h,w,color)
 {
     // set up player's starting point
-    this.x = canvas.width/2;
-    this.y = canvas.height/2;
+    if(x==undefined)
+        this.x = canvas.width/2;
+    else
+        this.x = x;
+    if(y==undefined)
+        this.y = canvas.height/2;
+    else
+        this.y = y;
     // set up player's dimentsions
-    this.width = 100;
-    this.height = 100;
+    if(w==undefined)
+        this.width = 100;
+    else
+        this.width = w;
+    if(h==undefined)
+        this.height = 100
+    else
+        this.height = h;
     this.radius = 50;
 
     // set players color
-    this.color = "#ff0000"
+    if(color==undefined)
+        this.color = "#ff0000";
+    else
+        this.color = color;
 
     // set up player's velocity
     this.vx = 0;
