@@ -6,6 +6,7 @@ function Player()
     // set up player's dimentsions
     this.width = 100;
     this.height = 100;
+    this.radius = 50;
 
     // set players color
     this.color = "#ff0000"
@@ -17,7 +18,7 @@ function Player()
     this.draw = function()
     {
         context.beginPath();
-        context.arc(this.x,this.y, radius, 0, 360*Math.PI/180, true)
+        context.arc(this.x,this.y, this.radius, 0, 360*Math.PI/180, true)
         context.closePath();
         context.fill();
         context.restore();
