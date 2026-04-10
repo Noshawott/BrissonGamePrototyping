@@ -95,6 +95,16 @@ function animate()
     {
         npc2.color = "blue";
     }
+    //=======================
+    //npc 3 collisoion
+    if(npc3.collisionCheck(player))
+    {
+        player.x = player.prevX;
+    }
+    else
+    {
+        player.prevX = player.x;
+    }
 
 
 

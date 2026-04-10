@@ -44,6 +44,8 @@ function GameObject(x,y,h,w,color)
         return this.y + this.height/2;
     }
 
+    this.prevX = this.x;
+
     // set up player's velocity
     this.vx = 0;
     this.vy = 0;
