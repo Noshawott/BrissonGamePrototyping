@@ -45,6 +45,7 @@ function GameObject(x,y,h,w,color)
     }
 
     this.prevX = this.x;
+    this.prevY = this.y;
 
     // set up player's velocity
     this.vx = 0;

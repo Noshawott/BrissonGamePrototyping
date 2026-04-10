@@ -100,10 +100,12 @@ function animate()
     if(npc3.collisionCheck(player))
     {
         player.x = player.prevX;
+        player.y = player.prevY;
     }
     else
     {
         player.prevX = player.x;
+        player.prevY = player.y;
     }
 
 
