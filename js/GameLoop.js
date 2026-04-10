@@ -75,6 +75,11 @@ function animate()
         player.color = "#00ff0d";
     }
 
+    if(npc1.collisionCheck(player))
+    {
+        np1.color = "yellow";
+    }
+
 
 
     player.drawCircle();
