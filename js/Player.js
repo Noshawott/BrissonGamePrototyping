@@ -64,7 +64,7 @@ function GameObject(x,y,h,w,color)
         this.y += this.vy;
     }
 
-    this.collisionChech = function(obj)
+    this.collisionCheck = function(obj)
     {
         if(
         this.left() < obj.right() &&

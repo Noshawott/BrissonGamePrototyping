@@ -75,9 +75,25 @@ function animate()
         player.color = "#00ff0d";
     }
 
+    //=======================
+    //npc 1 collisoion
     if(npc1.collisionCheck(player))
     {
-        np1.color = "yellow";
+        npc1.color = "yellow";
+    }
+    else
+    {
+        npc1.color = "green";
+    }
+    //=======================
+    //npc 2 collisoion
+    if(npc2.collisionCheck(player))
+    {
+        context.strokeRect(npc2.x-npc2.width/2, npc2.y-npc2.height/2, npc2.width, npc2.height);
+    }
+    else
+    {
+        npc2.color = "blue";
     }
 
 
