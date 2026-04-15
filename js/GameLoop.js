@@ -8,6 +8,8 @@ player = new GameObject(canvas.width/2,canvas.height/2,100,100,"#7a2876")
 player.vx = 0;
 player.vy = 0;
 
+var bar = new GameObject(20, canvas.height/2, 50, 20, "#0059ff");
+
 npc1 = new GameObject(300, canvas.height/2, 100, 100, "#00ff15");
 npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
 npc3 = new GameObject(900, canvas.height/2, 100, 100, "#ff0000");
@@ -19,61 +21,57 @@ function animate()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    if(d)
-    {
-        player.x += 5;
-    }
-    if(a)
-    {
-        player.x -= 5;
-    }
+    // if(d)
+    // {
+    //     player.x += 5;
+    // }
+    // if(a)
+    // {
+    //     player.x -= 5;
+    // }
     if(w)
     {
-        player.y -= 5;
+        bar.y -= 15;
     }
     if(s)
     {
-        player.y += 5;
+        bar.y += 15;
+    }
+
+    if(bar.y < 0 + bar.height/2)
+    {
+        if(w)
+        {
+            bar.y = 0;
+        }
+    }
+
+    if(bar.y > canvas.height + bar.height/2 - 70)
+    {
+        if(s)
+        {
+            bar.y = canvas.height + bar.height/2 - 70;
+        }
     }
 
 
-    player.move();
-    if(player.x > canvas.width + player.width/2 - 100)
-    {
-        player.vx *= -1;
-    }
-    if (player.x < 0 + player.width/2)
-    {
-        player.vx = 30;
-    }
-    if(player.y > canvas.height + player.height/2 - 100)
-    {
-        player.vy *= -1;
-    }
-    if (player.y < 0 + player.height/2)
-    {
-        player.vy = 30;
-    }
-    if(player.x > canvas.width + player.width/2 - 100 && player.y > canvas.height + player.height/2 - 100)
-    {
-        player.vx *= -1;
-        player.color = "#001aff";
-    }
-    if(player.x > canvas.width + player.width/2 - 100 && player.y < 0 + player.height/2)
-    {
-        player.vx *= -1;
-        player.color = "#ae00ff";
-    }
-    if (player.x < 0 + player.width/2 && player.y > canvas.height + player.height/2 - 100)
-    {
-        player.vx = 30;
-        player.color = "#fffb00";
-    }
-    if (player.x < 0 + player.width/2 && player.y < 0 + player.height/2)
-    {
-        player.vx = 30;
-        player.color = "#00ff0d";
-    }
+    bar.move();
+    // if(bar.x > canvas.width + bar.width/2 - 100)
+    // {
+    //     bar.vx *= -1;
+    // }
+    // if (bar.x < 0 + bar.width/2)
+    // {
+    //     bar.vx = 30;
+    // }
+    // if(bar.y > canvas.height + bar.height/2 - 100)
+    // {
+    //     bar.vy *= -1;
+    // }
+    // if (bar.y < 0 + bar.height/2)
+    // {
+    //     bar.vy = 30;
+    // }
 
     //=======================
     //npc 1 collisoion
@@ -109,11 +107,11 @@ function animate()
     }
 
 
-
-    player.drawCircle();
-    npc1.drawCircle();
-    npc2.drawCircle();
-    npc3.drawCircle();
+    bar.drawRect();
+    // player.drawCircle();
+    // npc1.drawCircle();
+    // npc2.drawCircle();
+    // npc3.drawCircle();
 }
  
 
