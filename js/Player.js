@@ -75,7 +75,7 @@ function GameObject(x,y,h,w,color)
     this.collisionCheck = function(obj)
     {
         if(
-        this.left() < obj.right() &&
+        this.left() < obj.right() - 35 &&
         this.right() > obj.left() &&
         this.top() < obj.bottom() &&
         this.bottom() > obj.top()
