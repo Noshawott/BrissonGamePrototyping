@@ -11,9 +11,9 @@ ball.vx = 10;
 
 var bar = new GameObject(0, canvas.height/2, 100, 15, "#0059ff");
 
-npc1 = new GameObject(300, canvas.height/2, 100, 100, "#00ff15");
-npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
-npc3 = new GameObject(900, canvas.height/2, 100, 100, "#ff0000");
+// npc1 = new GameObject(300, canvas.height/2, 100, 100, "#00ff15");
+// npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
+// npc3 = new GameObject(900, canvas.height/2, 100, 100, "#ff0000");
 
 
 timer = setInterval(animate, interval);
