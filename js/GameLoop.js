@@ -3,6 +3,8 @@ var canvas, context, player, timer, interval = 1000/60;
 canvas = document.getElementById("canvas")
 context = canvas.getContext("2d")
 
+var p1Score = 0, p2Score = 0;
+
 
 ball = new GameObject(canvas.width/2,canvas.height/2,100,100,"#7a2876")
 ball.radius = 10;
@@ -17,11 +19,35 @@ var bar2 = new GameObject(canvas.width - 15, canvas.height/2, 100, 15, "#ff0000"
 // npc3 = new GameObject(900, canvas.height/2, 100, 100, "#ff0000");
 
 
+
+
+
 timer = setInterval(animate, interval);
 
 function animate()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    context.font = "20px Georgia";
+    context.fillText("Player 1|Player 2", canvas.width/2 - 73, 50);
+    context.fillText(p1Score + "        " + p2Score, canvas.width/2 - 40, 80);
+
+
+
+
+    context.save();
+    context.strokeStyle = "#000000"
+    context.beginPath();
+    context.moveTo(canvas.width/2, 0);
+    context.lineTo(canvas.width/2, canvas.height);
+    context.closePath();
+    context.lineWidth = 2;
+    context.stroke();
+    context.restore();
+
+
+
+
 
     // if(d)
     // {
@@ -84,10 +110,12 @@ function animate()
     bar2.move();
     if(ball.x > canvas.width + ball.width/2 - 50)
     {
+        p1Score++;
         ball.x = canvas.width/2;
     }
     if (ball.x < 0 + ball.width/2 - 50)
     {
+        p2Score++;
         ball.x = canvas.width/2;
     }
     if(ball.y > canvas.height + ball.height/2 - 50)
