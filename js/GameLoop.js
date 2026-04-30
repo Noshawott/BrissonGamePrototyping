@@ -10,6 +10,7 @@ ball.vx = 10;
 // ball.vy = 10;
 
 var bar = new GameObject(0, canvas.height/2, 100, 15, "#0059ff");
+var bar2 = new GameObject(canvas.width - 15, canvas.height/2, 100, 15, "#ff0000");
 
 // npc1 = new GameObject(300, canvas.height/2, 100, 100, "#00ff15");
 // npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
@@ -38,6 +39,14 @@ function animate()
     {
         bar.y += 15;
     }
+    if(up)
+    {
+        bar2.y -= 15;
+    }
+    if(down)
+    {
+        bar2.y += 15;
+    }
 
     if(bar.y < 0 + bar.height/2)
     {
@@ -54,12 +63,28 @@ function animate()
             bar.y = canvas.height + bar.height/2 - 140;
         }
     }
+    if(bar2.y < 0 + bar2.height/2)
+    {
+        if(up)
+        {
+            bar2.y = 0;
+        }
+    }
+
+    if(bar2.y > canvas.height + bar2.height/2 - 140)
+    {
+        if(down)
+        {
+            bar2.y = canvas.height + bar2.height/2 - 140;
+        }
+    }
 
     ball.move();
     bar.move();
+    bar2.move();
     if(ball.x > canvas.width + ball.width/2 - 50)
     {
-        ball.vx *= -1;
+        ball.x = canvas.width/2;
     }
     if (ball.x < 0 + ball.width/2 - 50)
     {
@@ -92,8 +117,27 @@ function animate()
         //ball hits middle
         else
         {
-            console.log(ball.y, bar.y);
             ball.vx = 10;
+        }
+    }
+    if(ball.collisionCheck(bar2))
+    {
+        //ball hits top
+        if(ball.y <= bar2.y || ball.y < bar2.y + bar2.height/3 && ball.y > bar.y)
+        {
+            ball.vx = -10;
+            ball.vy = -10;
+        }
+        //ball hits bottom
+        else if (ball.y > bar2.y + 60)
+        {
+            ball.vx = -10;
+            ball.vy = 10;
+        }
+        //ball hits middle
+        else
+        {
+            ball.vx = -10;
         }
     }
 
@@ -133,6 +177,7 @@ function animate()
 
     bar.drawRect();
     ball.drawCircle();
+    bar2.drawRect();
     // npc1.drawCircle();
     // npc2.drawCircle();
     // npc3.drawCircle();
