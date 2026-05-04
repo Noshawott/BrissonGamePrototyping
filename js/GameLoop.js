@@ -205,8 +205,9 @@ function animate()
 
 
     bar.drawRect();
-    ball.drawCircle();
+    //ball.drawCircle();
     bar2.drawRect();
+    //draws the beach ball
     context.drawImage(img, ball.x- 40, ball.y - 40, ball.width, ball.height);
     // npc1.drawCircle();
     // npc2.drawCircle();
