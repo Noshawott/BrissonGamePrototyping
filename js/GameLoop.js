@@ -18,7 +18,7 @@ var bar2 = new GameObject(canvas.width - 15, canvas.height/2, 100, 15, "#ff0000"
 // npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
 // npc3 = new GameObject(900, canvas.height/2, 100, 100, "#ff0000");
 
-
+var img=document.getElementById("beachBall");
 
 
 
@@ -33,6 +33,7 @@ function animate()
     context.fillText(p1Score + "        " + p2Score, canvas.width/2 - 40, 80);
 
 
+    
 
 
     context.save();
@@ -206,6 +207,7 @@ function animate()
     bar.drawRect();
     ball.drawCircle();
     bar2.drawRect();
+    context.drawImage(img, ball.x- 40, ball.y - 40, ball.width, ball.height);
     // npc1.drawCircle();
     // npc2.drawCircle();
     // npc3.drawCircle();
