@@ -24,7 +24,7 @@ ball.vx = 10;
 player = new GameObject( canvas.width/2, 700, 190, 40,);
 player.color = "#7e0073";
 
-
+//npc data
 // npc1 = new GameObject(300, canvas.height/2, 100, 100, "#00ff15");
 // npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
 // npc3 = new GameObject(900, canvas.height/2, 100, 100, "#ff0000");
