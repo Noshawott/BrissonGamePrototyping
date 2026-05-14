@@ -1,9 +1,17 @@
-var canvas, context, player, timer, interval = 1000/60;
+var canvas, context, player, Score = 0, timer, interval = 1000/60;
 
 canvas = document.getElementById("canvas")
 context = canvas.getContext("2d")
 
 var p1Score = 0, p2Score = 0;
+
+var d = false;
+var a = false;
+
+var frictionX = 1;
+var frictionY = 1;
+var gravity = 0.3;
+
 
 
 ball = new GameObject(canvas.width/2,canvas.height/2,100,100,"#7a2876")
@@ -11,14 +19,17 @@ ball.radius = 10;
 ball.vx = 10;
 // ball.vy = 10;
 
-var bar = new GameObject(0, canvas.height/2, 100, 15, "#0059ff");
-var bar2 = new GameObject(canvas.width - 15, canvas.height/2, 100, 15, "#ff0000");
+// var bar = new GameObject(0, canvas.height/2, 100, 15, "#0059ff");
+// var bar2 = new GameObject(canvas.width - 15, canvas.height/2, 100, 15, "#ff0000");
+player = new GameObject( canvas.width/2, 700, 190, 40,);
+player.color = "#7e0073";
+
 
 // npc1 = new GameObject(300, canvas.height/2, 100, 100, "#00ff15");
 // npc2 = new GameObject(700, canvas.height/2, 100, 100, "#0059ff");
 // npc3 = new GameObject(900, canvas.height/2, 100, 100, "#ff0000");
 
-var img=document.getElementById("beachBall");
+// var img=document.getElementById("beachBall");
 
 
 
@@ -28,190 +39,146 @@ function animate()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
+    // context.font = "20px Georgia";
+    // context.fillText("Player 1|Player 2", canvas.width/2 - 73, 50);
+    // context.fillText(p1Score + "        " + p2Score, canvas.width/2 - 40, 80);
+
     context.font = "20px Georgia";
-    context.fillText("Player 1|Player 2", canvas.width/2 - 73, 50);
-    context.fillText(p1Score + "        " + p2Score, canvas.width/2 - 40, 80);
+    context.fillText("Score: ", 50, 75);
+    context.fillText(Score, 180, 76);
 
+   
+    doHandleAcceleration();
+    doApplyFriction();
+    doHandleGravity();
+    doUpdatePosition();
+    doCheckBottomBounds();
+     
 
-    
-
-
-    context.save();
-    context.strokeStyle = "#000000"
-    context.beginPath();
-    context.moveTo(canvas.width/2, 0);
-    context.lineTo(canvas.width/2, canvas.height);
-    context.closePath();
-    context.lineWidth = 2;
-    context.stroke();
-    context.restore();
-
-
-
-
-
-    // if(d)
-    // {
-    //     player.x += 5;
-    // }
-    // if(a)
-    // {
-    //     player.x -= 5;
-    // }
-    if(w)
-    {
-        bar.y -= 15;
-    }
-    if(s)
-    {
-        bar.y += 15;
-    }
-    if(up)
-    {
-        bar2.y -= 15;
-    }
-    if(down)
-    {
-        bar2.y += 15;
-    }
-
-    if(bar.y < 0 + bar.height/2)
-    {
-        if(w)
-        {
-            bar.y = 0;
-        }
-    }
-
-    if(bar.y > canvas.height + bar.height/2 - 140)
-    {
-        if(s)
-        {
-            bar.y = canvas.height + bar.height/2 - 140;
-        }
-    }
-    if(bar2.y < 0 + bar2.height/2)
-    {
-        if(up)
-        {
-            bar2.y = 0;
-        }
-    }
-
-    if(bar2.y > canvas.height + bar2.height/2 - 140)
-    {
-        if(down)
-        {
-            bar2.y = canvas.height + bar2.height/2 - 140;
-        }
-    }
 
     ball.move();
-    bar.move();
-    bar2.move();
-    if(ball.x > canvas.width + ball.width/2 - 50)
+    if(ball.x > canvas.width + ball.width/2 - 100)
     {
-        p1Score++;
-        ball.x = canvas.width/2;
+         ball.vx *= -1;
     }
-    if (ball.x < 0 + ball.width/2 - 50)
+     if (ball.x < 0 + ball.width/2)
+     {
+         ball.vx *= -1;
+         ball.x ++;
+     }
+     if(ball.y > canvas.height + ball.height/2 - 100)
+     {
+         ball.vy *= -1;
+         Score = 0;
+     }
+
+
+    player.move();
+
+    if (player.x < canvas.width/2 -400)
     {
-        p2Score++;
-        ball.x = canvas.width/2;
+        player.x = canvas.width/2 - 400
+        if (player.vx < 0) player.vx = 0;
     }
-    if(ball.y > canvas.height + ball.height/2 - 50)
+    if (player.x > canvas.width/2 + 400)
     {
-        ball.vy *= -1;
-    }
-    if (ball.y < 0 + ball.height/2 - 50)
-    {
-        ball.vy = 10;
+        player.x = canvas.width/2 + 400
+        if (player.vx > 0) player.vx = 0;
     }
     
+    function doHandleAcceleration () 
+    {
+        if (d) {
+            player.vx += player.ax * player.force;
+        }
 
-    if(ball.collisionCheck(bar))
-    {
-        //ball hits top
-        if(ball.y <= bar.y || ball.y < bar.y + bar.height/3 && ball.y > bar.y)
-        {
-            ball.vx = 10;
-            ball.vy = -10;
-        }
-        //ball hits bottom
-        else if (ball.y > bar.y + 60)
-        {
-            ball.vx = 10;
-            ball.vy = 10;
-        }
-        //ball hits middle
-        else
-        {
-            ball.vx = 10;
-        }
-    }
-    if(ball.collisionCheck(bar2))
-    {
-        //ball hits top
-        if(ball.y <= bar2.y || ball.y < bar2.y + bar2.height/3 && ball.y > bar.y)
-        {
-            ball.vx = -10;
-            ball.vy = -10;
-        }
-        //ball hits bottom
-        else if (ball.y > bar2.y + 60)
-        {
-            ball.vx = -10;
-            ball.vy = 10;
-        }
-        //ball hits middle
-        else
-        {
-            ball.vx = -10;
+        if (a) {
+            player.vx += player.ax * -player.force;
         }
     }
 
-    //=======================
-    //npc 1 collisoion
-    // if(npc1.collisionCheck(player))
-    // {
-    //     npc1.color = "yellow";
-    // }
-    // else
-    // {
-    //     npc1.color = "green";
-    // }
-    // //=======================
-    // //npc 2 collisoion
-    // if(npc2.collisionCheck(player))
-    // {
-    //     context.strokeRect(npc2.x-npc2.width/2, npc2.y-npc2.height/2, npc2.width, npc2.height);
-    // }
-    // else
-    // {
-    //     npc2.color = "blue";
-    // }
-    // //=======================
-    // //npc 3 collisoion
-    // if(npc3.collisionCheck(player))
-    // {
-    //     player.x = player.prevX;
-    //     player.y = player.prevY;
-    // }
-    // else
-    // {
-    //     player.prevX = player.x;
-    //     player.prevY = player.y;
-    // }
+    if(ball.collisionCheck(player))
+    {
+
+        /////OUTER LEFT
+        if(ball.x < player.x - player.width/3)
+        {
+            console.log("Outer Left")
+            ball.vy =- 10
+            ball.vx = ball.force * -5
+            Score++;
+
+        }
+        /////INNER LEFT
+        else if(ball.x < player.x - player.width/6)
+        {
+            console.log("Inner Left")
+            ball.vy =- 10
+            ball.vx = ball.force * -2.5
+            Score++;
+        }
+        /////CENTER
+        else if(ball.x < player.x + player.width/6)
+        {
+            console.log("Center")
+            ball.vy =- 10
+            ball.vx = ball.force * 0
+            Score++;
+        }
+        /////INNER RIGHT 
+        else if(ball.x < player.x + player.width/3)
+        {
+            console.log("Inner Right")
+            ball.vy =- 10
+            ball.vx = ball.force * 2.5
+            Score++;
+        }
+        /////OUTER LEFT
+        else
+        {
+            console.log("Outer Right")
+            ball.vy =- 10
+            ball.vx = ball.force * 5
+            Score++;
+        }
+
+    
+    }
+
+    function doHandleGravity () {
+        ball.vy += gravity;
+    }
+
+    function doUpdatePosition () {
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+    }
+
+    function doCheckBottomBounds() {
+        if (ball.y > canvas.height - ball.height/2) 
+        {
+        }
+    }
+
+    function doApplyFriction()
+    {
+        player.vx *= 0.93;
+    }
 
 
-    bar.drawRect();
-    //ball.drawCircle();
-    bar2.drawRect();
-    //draws the beach ball
-    context.drawImage(img, ball.x- 40, ball.y - 40, ball.width, ball.height);
-    // npc1.drawCircle();
-    // npc2.drawCircle();
-    // npc3.drawCircle();
+        context.beginPath();
+    {
+        context.moveTo(ball.x, ball.y);
+        context.lineTo(player.x, player.y);
+        context.closePath();
+        context.lineWidth = 6;
+        context.stroke();
+        
+    }
+
+        ball.drawCircle();
+        player.drawRect();
+
+
+
 }
- 
-
